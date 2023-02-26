@@ -35,21 +35,31 @@ if __name__ == '__main__':
 
     @bot.message_handler(func=lambda message: True)
     def echo_all(message):
-        pattern = re.compile('@emily (\S+)')
+        # pattern = re.compile('@emily (\S+)')
         text = message.text
         print(f'text: {text}')
-        m = pattern.search(text)
-        if m is None:
-            bot.reply_to(message, 'Please tell me something you want to know')
-        else:
-            try:
-                resp = create_response(text)
-                print(resp)
-                ans = resp.choices[0].text
-                bot.reply_to(message, ans)
-            except openai.APIError as e:
-                print(f'error: {e}')
-                bot.reply_to(
-                    message, 'Please tell me something you want to know')
+        try:
+            resp = create_response(text)
+            print(resp)
+            ans = resp.choices[0].text
+            bot.reply_to(message, ans)
+        except openai.APIError as e:
+            print(f'error: {e}')
+            bot.reply_to(
+                message, 'Please tell me something you want to know')
+
+        # m = pattern.search(text)
+        # if m is None:
+        #     bot.reply_to(message, 'Please tell me something you want to know')
+        # else:
+        #     try:
+        #         resp = create_response(text)
+        #         print(resp)
+        #         ans = resp.choices[0].text
+        #         bot.reply_to(message, ans)
+        #     except openai.APIError as e:
+        #         print(f'error: {e}')
+        #         bot.reply_to(
+        #             message, 'Please tell me something you want to know')
 
     bot.infinity_polling()
