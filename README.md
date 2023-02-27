@@ -1,5 +1,8 @@
 # emily_zh_bot
 
+此项目为 telegram 机器人。
+采用 openai 和 telegram 创建的个人助理机器人。
+
 ## 操作说明
 
 1. cp .env.sample .env
